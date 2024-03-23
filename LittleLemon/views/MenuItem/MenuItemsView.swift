@@ -7,44 +7,41 @@
 
 import SwiftUI
 
-struct MenuItemView: View {
+struct MenuItemsView: View {
     
-    @State var viewModel = MenuItemViewModel()
-    @State var menuItemOptionViewModel = MenuItemOptionViewModel()
+   @StateObject private var viewModel = MenuItemsViewModel()
+
     
     var body: some View {
         NavigationStack{
             ScrollView{
-                if menuItemOptionViewModel.isShowFood{
+                if viewModel.isShowFood{
                     MenuItemGridView(menuItems: viewModel.foods, menuCategory: .food)
                 }
-                if menuItemOptionViewModel.isShowDrinks{
+                if viewModel.isShowDrinks{
                     MenuItemGridView(menuItems: viewModel.drinks, menuCategory: .drink)
                 }
-                if menuItemOptionViewModel.isShowDesserts{
+                if viewModel.isShowDesserts{
                     MenuItemGridView(menuItems: viewModel.desserts, menuCategory: .dessert)
                 }
               
             }
             .onAppear() {
-                menuItemOptionViewModel.updateMenuItems()
+                viewModel.updateMenuItems()
             }
             .navigationTitle("Menu")
             .toolbar{
-                Button{
-                    menuItemOptionViewModel.isOpenedOptionView.toggle()
-                }label: {
+                Button(action: {viewModel.isOpenedOptionView.toggle()}, label: {
                     Image(systemName: "line.3.horizontal.decrease.circle")
-                }
+                })
             }
-            .sheet(isPresented: $menuItemOptionViewModel.isOpenedOptionView) {
+            .sheet(isPresented: $viewModel.isOpenedOptionView) {
                 NavigationStack {
-                    MenuItemOptionView()
+                    MenuItemsOptionView().environmentObject(viewModel)
                         .toolbar {
-                            // When the button is pressed, it sorts the data according to the user's choice
                             Button("Done") {
-                                menuItemOptionViewModel.updateMenuItems()
-                                menuItemOptionViewModel.isOpenedOptionView.toggle()
+                                viewModel.updateMenuItems()
+                                viewModel.isOpenedOptionView.toggle()
                             }
                         }
                 }
@@ -57,6 +54,5 @@ struct MenuItemView: View {
 
 
 #Preview {
-    MenuItemView()
+    MenuItemsView()
 }
-

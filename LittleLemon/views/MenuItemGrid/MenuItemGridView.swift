@@ -9,18 +9,14 @@ import SwiftUI
 
 struct MenuItemGridView: View {
     
-    var viewModel =  MenuItemViewModel()
-    var menuItems : [MenuItem]
-    var menuCategory: MenuCategory
+    let menuItems : [MenuItem]
+    let menuCategory: MenuCategory
     
-    
-    let threeColumns = [
+    private  let threeColumns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
-    
     
     var body: some View {
         VStack (alignment: .leading){
@@ -29,7 +25,6 @@ struct MenuItemGridView: View {
                     .font(.title2)
             }
             
-
             LazyVGrid(columns: threeColumns, content: {
                 ForEach(menuItems) { items in
                     NavigationLink {
@@ -43,14 +38,10 @@ struct MenuItemGridView: View {
                         .frame(width: 120 , height: 120)
                         .foregroundStyle(.black)
                     }
-
-                
-                    
                 }
-                
-                
-            })
-        }
+            }
+        )
+    }
         .padding()
     }
 }
@@ -58,7 +49,7 @@ struct MenuItemGridView: View {
 
 struct MenuItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = MenuItemViewModel()
+        let viewModel = MenuItemsViewModel()
         MenuItemGridView(menuItems: viewModel.foods, menuCategory: .food)
     }
 }

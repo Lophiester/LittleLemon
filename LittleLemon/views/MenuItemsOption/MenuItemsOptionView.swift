@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct MenuItemOptionView: View {
+struct MenuItemsOptionView: View {
     
-    @State var viewModel = MenuItemOptionViewModel()
+    @EnvironmentObject var viewModel: MenuItemsViewModel
+    
   
     
     var body: some View {
@@ -34,5 +35,5 @@ struct MenuItemOptionView: View {
 }
 
 #Preview {
-    MenuItemOptionView()
+    MenuItemsOptionView().environmentObject(MenuItemsViewModel())
 }

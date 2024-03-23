@@ -24,6 +24,7 @@ struct MenuItemDetailsView: View {
       return "\(menuItem.ordersCount)"
     }
     
+  
     var body: some View {
         NavigationStack {
           VStack(spacing: 20) {

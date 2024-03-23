@@ -9,11 +9,14 @@ import SwiftUI
 
 @main
 struct LittleLemonApp: App {
+    @StateObject var env = MenuItemsViewModel()
+    
     var body: some Scene {
+        
         WindowGroup {
-            NavigationStack{
-                MenuItemView()
-            }
+         
+            MenuItemsView().environmentObject(env)
+            
         }
     }
 }
